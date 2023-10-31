@@ -107,56 +107,63 @@ for sentence in df['clean_review'].values:
 ''.join(set(all_text_clean))
 
 
-print(df["clean_review"].value_counts())
+# print(df["clean_review"].value_counts())
 
 
 
 # ================================================================
-# # Plot Key words of every rating to word cloud
+# Plot Key words of every rating to word cloud
 
-# # plt.figure(figsize=(40,25))
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
 
-# # subset1 = df[df['Review_rating']=='1']
-# # text = subset1.clean_review.values
-# # cloud1=WordCloud(background_color='pink',colormap="Dark2",collocations=False,width=2500,height=1800).generate(" ".join(text))
+plt.figure(figsize=(40, 25))
 
-# # plt.subplot(3, 2, 1)
-# # plt.axis('off')
-# # plt.title("1",fontsize=40)
-# # plt.imshow(cloud1)
+subset1 = df[df['Review_rating'] == '1']
+text = subset1.clean_review.values
+cloud1 = WordCloud(background_color='pink', colormap="Dark2", collocations=False, width=2500, height=1800).generate(" ".join(text))
 
-# # subset2 = df[df['Review_rating']=='2']
-# # text = subset2.clean_review.values
-# # cloud2=WordCloud(background_color='pink',colormap="Dark2",collocations=False,width=2500,height=1800).generate(" ".join(text))
+plt.subplot(3, 2, 1)
+plt.axis('off')
+plt.title("1", fontsize=40)
+plt.imshow(cloud1)
 
-# # plt.subplot(3, 2, 2)
-# # plt.axis('off')
-# # plt.title("2",fontsize=40)
-# # plt.imshow(cloud2)
+subset2 = df[df['Review_rating'] == '2']
+text = subset2.clean_review.values
+cloud2 = WordCloud(background_color='pink', colormap="Dark2", collocations=False, width=2500, height=1800).generate(" ".join(text))
 
-# # subset3 = df[df['Review_rating']=='3']
-# # text = subset3.clean_review.values
-# # cloud3=WordCloud(background_color='pink',colormap="Dark2",collocations=False,width=2500,height=1800).generate(" ".join(text))
+plt.subplot(3, 2, 2)
+plt.axis('off')
+plt.title("2", fontsize=40)
+plt.imshow(cloud2)
 
-# # plt.subplot(3, 2, 3)
-# # plt.axis('off')
-# # plt.title("3",fontsize=40)
-# # plt.imshow(cloud3)
+subset3 = df[df['Review_rating'] == '3']
+text = subset3.clean_review.values
+cloud3 = WordCloud(background_color='pink', colormap="Dark2", collocations=False, width=2500, height=1800).generate(" ".join(text))
 
-# # subset4 = df[df['Review_rating']=='4']
-# # text = subset4.clean_review.values
-# # cloud4=WordCloud(background_color='pink',colormap="Dark2",collocations=False,width=2500,height=1800).generate(" ".join(text))
+plt.subplot(3, 2, 3)
+plt.axis('off')
+plt.title("3", fontsize=40)
+plt.imshow(cloud3)
 
-# # plt.subplot(3, 2, 4)
-# # plt.axis('off')
-# # plt.title("4",fontsize=40)
-# # plt.imshow(cloud4)
+subset4 = df[df['Review_rating'] == '4']
+text = subset4.clean_review.values
+cloud4 = WordCloud(background_color='pink', colormap="Dark2", collocations=False, width=2500, height=1800).generate(" ".join(text))
 
-# # subset5 = df[df['Review_rating']=='5']
-# # text = subset5.clean_review.values
-# # cloud5=WordCloud(background_color='pink',colormap="Dark2",collocations=False,width=2500,height=1800).generate(" ".join(text))
+plt.subplot(3, 2, 4)
+plt.axis('off')
+plt.title("4", fontsize=40)
+plt.imshow(cloud4)
 
-# # plt.subplot(3, 2, 5)
-# # plt.axis('off')
-# # plt.title("5",fontsize=40)
-# # plt.imshow(cloud5)
+
+subset5 = df[df['Review_rating'] == '5']
+text = subset5.clean_review.values
+cloud5 = WordCloud(background_color='pink', colormap="Dark2", collocations=False, width=2500, height=1800).generate(" ".join(text))
+
+plt.subplot(3, 2, 5)
+plt.axis('off')
+plt.title("5", fontsize=40)
+plt.imshow(cloud5)
+
+# Save cloud5 figure as PNG
+plt.savefig('Src/cloud1-5.png')
