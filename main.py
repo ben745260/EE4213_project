@@ -8,15 +8,15 @@ from string import punctuation
 import re
 from wordcloud import WordCloud
 from transformers import pipeline
+import os
 
 warnings.filterwarnings('ignore')
 
-# ================================================================
 # Init the dataset to review and rating only
-
+# ================================================================
 # 1. Data acquisition
 file = pd.read_csv("Src/Shoes_Data.csv")
-
+# ================================================================
 # 2. Data processing
 df = file[["reviews", "reviews_rating"]]
 
@@ -38,14 +38,18 @@ df = pd.DataFrame(list(zip(product_id, reviews, rates)),
 
 # Cleaning functions
 
+
 def lower(text):
     return text.lower()
+
 
 def remove_punctuation(text):
     return text.translate(str.maketrans('', '', punctuation))
 
+
 def remove_digits(text):
     return re.sub(r'\d+', '', text)
+
 
 def remove_emoji(text):
     emoji_pattern = re.compile("["
@@ -58,9 +62,11 @@ def remove_emoji(text):
                                "]+", flags=re.UNICODE)
     return emoji_pattern.sub(r'', text)
 
+
 def remove_non_printable(text):
     text = text.encode("ascii", "ignore")
     return text.decode()
+
 
 def clean_text(text):
     text = lower(text)
@@ -70,6 +76,7 @@ def clean_text(text):
     text = remove_non_printable(text)
     return text
 
+
 # Apply the cleaning function to 'Review' column
 df['clean_review'] = df['Review'].apply(clean_text)
 
@@ -77,9 +84,12 @@ df['clean_review'] = df['Review'].apply(clean_text)
 df.drop("Review", axis=1, inplace=True)
 df.to_csv('Src/shoe_cleanData.csv', index=False)
 
+
+# ================================================================
 # 3. Model deployment
 # Sentiment analysis using BERT model
 sentiment_model = pipeline("sentiment-analysis")
+
 
 def analyze_sentiment(text):
     sentiment = sentiment_model(text)[0]
@@ -88,64 +98,81 @@ def analyze_sentiment(text):
     return emotion, score
 
 # Apply sentiment analysis to 'clean_review' column
+
+# if os.path.isfile('Src/shoe_cleanData_semantic.csv'):
+#     df = pd.read_csv("Src/shoe_cleanData_semantic.csv")
+# else:
+#     df[['Emotion', 'Sentiment_Score']] = df['clean_review'].apply(analyze_sentiment).apply(pd.Series)
+#     df.to_csv('Src/shoe_cleanData_semantic.csv', index=False)
+
 df[['Emotion', 'Sentiment_Score']] = df['clean_review'].apply(analyze_sentiment).apply(pd.Series)
 df.to_csv('Src/shoe_cleanData_semantic.csv', index=False)
 
+# ================================================================
+# 4. Recommendations based on sentiment analysis
+# Group the DataFrame by product_id
+grouped_df = df.groupby('Product_id')
+
+recommendations = []  # List to store recommendations
+
+# Iterate over each product group
+for product_id, group in grouped_df:
+    # Extract sentiments and emotions
+    sentiments = group['Sentiment_Score']
+    emotions = group['Emotion']
+    reviews = group['clean_review']
+
+    # Calculate overall sentiment and emotion distribution
+    overall_sentiment = np.mean(sentiments)
+    emotion_distribution = emotions.value_counts(normalize=True)
+
+    # Create a recommendation string for the product
+    recommendation = f"Product ID: {product_id}\n"
+    recommendation += "==============\n"
+    recommendation += f"Overall Sentiment: {overall_sentiment}\n"
+    recommendation += "Emotion Distribution:\n"
+    recommendation += f"{emotion_distribution}\n"
+    recommendation += "--------------\n"
+
+    # Recommendations based on sentiment and emotion analysis
+    if overall_sentiment > 0.5:
+        recommendation += "Recommendations:\n"
+        recommendation += "- Capitalize on positive reviews by featuring them prominently.\n"
+        recommendation += "- Use positive testimonials in marketing campaigns.\n"
+        # Add more recommendations based on the specific product and sentiment
+
+        # Concrete recommendations based on the reviews
+        positive_reviews = reviews[sentiments > 0.5]
+        if not positive_reviews.empty:
+            recommendation += "Positive Reviews:\n"
+            recommendation += f"{positive_reviews.to_string(index=False)}\n"
+            # Add more specific recommendations based on the positive reviews
+
+    elif overall_sentiment < 0.5:
+        recommendation += "Recommendations:\n"
+        recommendation += "- Address concerns raised in negative reviews promptly.\n"
+        recommendation += "- Use negative feedback as an opportunity to improve.\n"
+        # Add more recommendations based on the specific product and sentiment
+
+        # Concrete recommendations based on the reviews
+        negative_reviews = reviews[sentiments < 0.5]
+        if not negative_reviews.empty:
+            recommendation += "Negative Reviews:\n"
+            recommendation += f"{negative_reviews.to_string(index=False)}\n"
+            # Add more specific recommendations based on the negative reviews
+
+    else:
+        recommendation += "Recommendations:\n"
+        recommendation += "- Engage with customers who provided neutral feedback for further insights.\n"
+        # Add more recommendations based on the specific product and sentiment
+
+    recommendation += "==============\n\n"
+
+    recommendations.append(recommendation)
+
+# Save the recommendations to a CSV file
+recommendations_df = pd.DataFrame(recommendations, columns=["Recommendations"])
+recommendations_df.to_csv(
+    'Src/shoe_cleanData_recommendations.csv', index=False)
+
 print(df.head())
-
-# # ================================================================
-# # Plot Key words of every rating to word cloud
-
-# import matplotlib.pyplot as plt
-# from wordcloud import WordCloud
-
-# plt.figure(figsize=(40, 25))
-
-# subset1 = df[df['Review_rating'] == '1']
-# text = subset1.clean_review.values
-# cloud1 = WordCloud(background_color='pink', colormap="Dark2", collocations=False, width=2500, height=1800).generate(" ".join(text))
-
-# plt.subplot(3, 2, 1)
-# plt.axis('off')
-# plt.title("1", fontsize=40)
-# plt.imshow(cloud1)
-
-# subset2 = df[df['Review_rating'] == '2']
-# text = subset2.clean_review.values
-# cloud2 = WordCloud(background_color='pink', colormap="Dark2", collocations=False, width=2500, height=1800).generate(" ".join(text))
-
-# plt.subplot(3, 2, 2)
-# plt.axis('off')
-# plt.title("2", fontsize=40)
-# plt.imshow(cloud2)
-
-# subset3 = df[df['Review_rating'] == '3']
-# text = subset3.clean_review.values
-# cloud3 = WordCloud(background_color='pink', colormap="Dark2", collocations=False, width=2500, height=1800).generate(" ".join(text))
-
-# plt.subplot(3, 2, 3)
-# plt.axis('off')
-# plt.title("3", fontsize=40)
-# plt.imshow(cloud3)
-
-# subset4 = df[df['Review_rating'] == '4']
-# text = subset4.clean_review.values
-# cloud4 = WordCloud(background_color='pink', colormap="Dark2", collocations=False, width=2500, height=1800).generate(" ".join(text))
-
-# plt.subplot(3, 2, 4)
-# plt.axis('off')
-# plt.title("4", fontsize=40)
-# plt.imshow(cloud4)
-
-
-# subset5 = df[df['Review_rating'] == '5']
-# text = subset5.clean_review.values
-# cloud5 = WordCloud(background_color='pink', colormap="Dark2", collocations=False, width=2500, height=1800).generate(" ".join(text))
-
-# plt.subplot(3, 2, 5)
-# plt.axis('off')
-# plt.title("5", fontsize=40)
-# plt.imshow(cloud5)
-
-# # Save cloud1-5 figure as PNG
-# plt.savefig('Src/cloud1-5.png')
