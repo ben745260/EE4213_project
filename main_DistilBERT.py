@@ -1,16 +1,9 @@
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.feature_extraction.text import CountVectorizer
 import warnings
-import nltk
 from string import punctuation
 import re
-from wordcloud import WordCloud
 from transformers import pipeline
 import os
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
-import torch
 
 warnings.filterwarnings('ignore')
 

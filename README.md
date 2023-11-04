@@ -6,12 +6,19 @@ CSV file:
 ipynb file:kv
 >https://www.kaggle.com/code/lizakonopelko/shoes-reviews-eda-sentiment-analysis
 
-pip install:
+Pip install:
 ```
-pip install numpy
-pip install pandas
-pip install matplotlib
-pip install scikit-learn
-pip install nltk
-pip install wordcloud
+pip install -r requirements.txt
+```
+BERT:
+```
+https://huggingface.co/bert-base-uncased
+```
+DistilBERT:
+```
+https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english
+```
+Special Require Model:
+```
+https://huggingface.co/LiYuan/amazon-review-sentiment-analysis
 ```

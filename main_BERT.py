@@ -1,14 +1,10 @@
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import warnings
-import nltk
 from string import punctuation
 import re
-from wordcloud import WordCloud
 from transformers import pipeline
 import os
-from transformers import BertForSequenceClassification, BertTokenizer, AdamW
+from transformers import BertTokenizer
 import torch
 
 warnings.filterwarnings('ignore')
