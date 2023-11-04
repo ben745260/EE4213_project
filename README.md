@@ -11,14 +11,10 @@ Pip install:
 pip install -r requirements.txt
 ```
 BERT:
-```
-https://huggingface.co/bert-base-uncased
-```
+>https://huggingface.co/bert-base-uncased
+
 DistilBERT:
-```
-https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english
-```
+>https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english
+
 Special Require Model:
-```
-https://huggingface.co/LiYuan/amazon-review-sentiment-analysis
-```
+>https://huggingface.co/LiYuan/amazon-review-sentiment-analysis
