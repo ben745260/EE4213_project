@@ -164,3 +164,48 @@ plt.title('Products with Low Sentiment Scores (Areas for Improvement)')
 plt.grid(axis='x')
 plt.tight_layout()
 plt.savefig('Src/amazonReviewModel/recommendation_3.png')
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create a single figure and axis
+fig, ax = plt.subplots(figsize=(18, 10))
+
+# Calculate the width of each sub-plot 
+width = 0.25
+
+# Visualize Recommendation 1: Average sentiment scores
+ax.bar(np.arange(len(recommendation_1)), recommendation_1['Average_sentiment_score'], width, color='#ff7f0e', label='Sentiment Scores')
+ax.set_xticks(np.arange(len(recommendation_1)))
+ax.set_xticklabels(recommendation_1['Product_id'])
+ax.set_ylabel('Average Sentiment Score')
+ax.set_title('Products with High Average Sentiment Scores')
+
+# Visualize Recommendation 2: Average review ratings
+ax2 = ax.twinx()
+ax2.bar(np.arange(len(recommendation_2)) + width, recommendation_2['Average_review_rating'], width, color='#1f77b4', label='Review Ratings')
+ax2.set_xticks(np.arange(len(recommendation_2)) + width)
+ax2.set_xticklabels(recommendation_2['Product_id'])
+ax2.set_ylabel('Average Review Rating')
+
+# Visualize Recommendation 3: Areas for improvement
+ax3 = ax.twinx()
+ax3.bar(np.arange(len(recommendation_3)) + 2*width, recommendation_3['Average_sentiment_score'], width, color='#d62728', label='Sentiment Scores')
+ax3.set_xticks(np.arange(len(recommendation_3)) + 2*width)
+ax3.set_xticklabels(recommendation_3['Product_id'])
+ax3.set_ylabel('Average Sentiment Score')
+
+# Adjust the spacing between subplots
+plt.subplots_adjust(wspace=0.5)
+
+# Combine the legends
+lines, labels = ax.get_legend_handles_labels()
+lines2, labels2 = ax2.get_legend_handles_labels()
+lines3, labels3 = ax3.get_legend_handles_labels()
+ax3.legend(lines + lines2 + lines3, labels + labels2 + labels3, loc='lower right')
+
+# Save the combined plot
+plt.savefig('Src/amazonReviewModel/recommendations_combined.png')
+
+# Show the combined plot
+plt.show()
