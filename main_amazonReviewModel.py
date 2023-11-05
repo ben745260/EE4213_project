@@ -93,28 +93,74 @@ def analyze_sentiment(text):
 
 
 # Apply sentiment analysis to 'clean_review' column
-if os.path.isfile('Src/specialRequireModel/shoe_cleanData_semantic.csv'):
-    df = pd.read_csv("Src/specialRequireModel/shoe_cleanData_semantic.csv")
+if os.path.isfile('Src/amazonReviewModel/shoe_cleanData_semantic.csv'):
+    df = pd.read_csv("Src/amazonReviewModel/shoe_cleanData_semantic.csv")
 else:
     df[['Emotion', 'Sentiment_Score']] = df['clean_review'].apply(
         analyze_sentiment).apply(pd.Series)
-    df.to_csv('Src/specialRequireModel/shoe_cleanData_semantic.csv', index=False)
+    df.to_csv('Src/amazonReviewModel/shoe_cleanData_semantic.csv', index=False)
 
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 # ================================================================
 # 4. Recommendations based on sentiment analysis
 # Group the DataFrame by product_id
 print("Part 4")
 
+# Convert 'Review_rating' column to numeric
+df['Review_rating'] = df['Review_rating'].str.extract('(\d+)').astype(float)
+
 # Group the DataFrame by 'Product_id'
 grouped_df = df.groupby('Product_id').agg(
-    {'Emotion': ['count', lambda x: (x == 'POSITIVE').mean()]})
-grouped_df.columns = ['Review_count', 'Average_sentiment']
+    {'Emotion': 'count', 'Sentiment_Score': 'mean', 'Review_rating': 'mean'})
+grouped_df.columns = ['Review_count', 'Average_sentiment_score', 'Average_review_rating']
 grouped_df.reset_index(inplace=True)
 
-# Sort the DataFrame based on the 'Review_count' and 'Average_sentiment'
+# Sort the DataFrame based on the 'Review_count', 'Average_sentiment_score', and 'Average_review_rating'
 sorted_df = grouped_df.sort_values(
-    ['Review_count', 'Average_sentiment'], ascending=[False, False])
+    ['Review_count', 'Average_sentiment_score', 'Average_review_rating'], ascending=[False, False, False])
 
-# Save the recommendations results to a CSV file
-sorted_df.to_csv('Src/specialRequireModel/shoe_cleanData_recommendations.csv', index=False)
+# Apply the recommendations
+top_products = sorted_df.head(10)  # Select top 10 products with the highest review count
+
+# Recommendation 1: Analyze average sentiment scores
+recommendation_1 = top_products[['Product_id', 'Average_sentiment_score']]
+
+# Recommendation 2: Consider average review ratings
+recommendation_2 = top_products[['Product_id', 'Average_review_rating']]
+
+# Recommendation 3: Identify areas for improvement
+low_sentiment_products = sorted_df.tail(10)  # Select bottom 10 products with the lowest sentiment scores
+recommendation_3 = low_sentiment_products[['Product_id', 'Average_sentiment_score']]
+
+# Visualize Recommendation 1: Average sentiment scores
+plt.figure(figsize=(10, 6))
+plt.barh(np.arange(len(recommendation_1)), recommendation_1['Average_sentiment_score'], color='#ff7f0e')
+plt.yticks(np.arange(len(recommendation_1)), recommendation_1['Product_id'])
+plt.xlabel('Average Sentiment Score')
+plt.title('Products with High Average Sentiment Scores')
+plt.grid(axis='x')
+plt.tight_layout()
+plt.savefig('Src/amazonReviewModel/recommendation_1.png')
+
+# Visualize Recommendation 2: Average review ratings
+plt.figure(figsize=(10, 6))
+plt.barh(np.arange(len(recommendation_2)), recommendation_2['Average_review_rating'], color='#1f77b4')
+plt.yticks(np.arange(len(recommendation_2)), recommendation_2['Product_id'])
+plt.xlabel('Average Review Rating')
+plt.title('Products with High Average Review Ratings')
+plt.grid(axis='x')
+plt.tight_layout()
+plt.savefig('Src/amazonReviewModel/recommendation_2.png')
+
+# Visualize Recommendation 3: Areas for improvement
+plt.figure(figsize=(10, 6))
+plt.barh(np.arange(len(recommendation_3)), recommendation_3['Average_sentiment_score'], color='#d62728')
+plt.yticks(np.arange(len(recommendation_3)), recommendation_3['Product_id'])
+plt.xlabel('Average Sentiment Score')
+plt.title('Products with Low Sentiment Scores (Areas for Improvement)')
+plt.grid(axis='x')
+plt.tight_layout()
+plt.savefig('Src/amazonReviewModel/recommendation_3.png')

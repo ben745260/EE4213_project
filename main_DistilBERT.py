@@ -4,6 +4,7 @@ from string import punctuation
 import re
 from transformers import pipeline
 import os
+import matplotlib.pyplot as plt
 
 warnings.filterwarnings('ignore')
 
@@ -132,14 +133,14 @@ negative_recommendations = negative_recommendations.drop_duplicates(subset='Prod
 average_sentiment = df.groupby('Product_id')['Sentiment_Score'].mean()
 sentiment_recommendations = average_sentiment.nlargest(3).index.tolist()
 
-# Print the recommendations
-print("Positive Sentiment Recommendations:")
-print(positive_recommendations)
-print()
+# Save recommendations to a text file
+recommendations_path = 'Src/DistilBERT/recommendations.txt'
+with open(recommendations_path, 'w') as file:
+    file.write("Positive Sentiment Recommendations:\n")
+    file.write(str(positive_recommendations) + "\n\n")
+    file.write("Negative Sentiment Recommendations:\n")
+    file.write(str(negative_recommendations) + "\n\n")
 
-print("Negative Sentiment Recommendations:")
-print(negative_recommendations)
-print()
-
-print("Sentiment Score Recommendations:")
-print(sentiment_recommendations)
+    file.write("\n\n")
+    file.write("Sentiment Score Recommendations:\n")
+    file.write(str(sentiment_recommendations) + "\n")

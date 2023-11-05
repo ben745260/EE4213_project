@@ -1,0 +1,32 @@
+Positive Sentiment Recommendations:
+      Product_id       Review_rating            clean_review Sentiment
+0              1  1.0 out of 5 stars  not happy with product  Positive
+208           27  1.0 out of 5 stars             user review  Positive
+240           31  5.0 out of 5 stars  happy with the product  Positive
+250           32  5.0 out of 5 stars                  comfy   Positive
+283           37  4.0 out of 5 stars            shoe quality  Positive
+...          ...                 ...                     ...       ...
+9057        1124  5.0 out of 5 stars       verified purchase  Positive
+9211        1142  5.0 out of 5 stars       verified purchase  Positive
+9288        1151  5.0 out of 5 stars       verified purchase  Positive
+9623        1193  1.0 out of 5 stars      colour is not good  Positive
+9694        1201  1.0 out of 5 stars      colour is not good  Positive
+
+[82 rows x 4 columns]
+
+Negative Sentiment Recommendations:
+      Product_id       Review_rating                          clean_review Sentiment
+207           26  5.0 out of 5 stars                       value for money  Negative
+326           43  2.0 out of 5 stars    quality of the product is very low  Negative
+422           54  1.0 out of 5 stars     a genuine review not worth buying  Negative
+559           72  5.0 out of 5 stars         good sandak for rainy seasons  Negative
+626           81  5.0 out of 5 stars  buy  size after calculate size chart  Positive
+...          ...                 ...                                   ...       ...
+9365        1160  5.0 out of 5 stars                     verified purchase  Negative
+9507        1177  5.0 out of 5 stars                         great product  Negative
+9765        1209  1.0 out of 5 stars                    colour is not good  Negative
+9836        1217  1.0 out of 5 stars                    colour is not good  Negative
+9907        1225  1.0 out of 5 stars                    colour is not good  Negative
+
+[76 rows x 4 columns]
+

@@ -124,3 +124,27 @@ sorted_df = grouped_df.sort_values(['Review_count', 'Average_sentiment'], ascend
 
 # Save the recommendations results to a CSV file
 sorted_df.to_csv('Src/BERT/shoe_cleanData_recommendations.csv', index=False)
+
+# Sort the DataFrame based on the 'Review_count' and 'Average_sentiment'
+sorted_df = grouped_df.sort_values(
+    ['Review_count', 'Average_sentiment'], ascending=[False, False])
+
+# Save the recommendations results to a CSV file
+sorted_df.to_csv('Src/BERT/shoe_cleanData_recommendations.csv', index=False)
+
+# Recommendation based on Positive Sentiment
+positive_recommendations = df.groupby('Product_id').filter(lambda x: (x['Sentiment'] == 'Positive').mean() > 0.8)
+positive_recommendations = positive_recommendations.drop_duplicates(subset='Product_id')
+
+# Recommendation based on Negative Sentiment
+negative_recommendations = df.groupby('Product_id').filter(lambda x: (x['Sentiment'] == 'Negative').mean() > 0.8)
+negative_recommendations = negative_recommendations.drop_duplicates(subset='Product_id')
+
+
+# Save recommendations to a text file
+recommendations_path = 'Src/BERT/recommendations.txt'
+with open(recommendations_path, 'w') as file:
+    file.write("Positive Sentiment Recommendations:\n")
+    file.write(str(positive_recommendations) + "\n\n")
+    file.write("Negative Sentiment Recommendations:\n")
+    file.write(str(negative_recommendations) + "\n\n")

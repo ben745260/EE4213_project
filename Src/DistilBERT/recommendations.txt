@@ -1,0 +1,78 @@
+Positive Sentiment Recommendations:
+      Product_id       Review_rating                                       clean_review   Emotion  Sentiment_Score
+73             9  5.0 out of 5 stars      material is good and comfortable nice product  POSITIVE         0.999877
+95            12  3.0 out of 5 stars  average quality you can buy if you want to try...  POSITIVE         0.575497
+153           19  5.0 out of 5 stars                         its good product in budget  POSITIVE         0.999828
+197           24  5.0 out of 5 stars                                          i like it  POSITIVE         0.999859
+207           26  5.0 out of 5 stars                                    value for money  POSITIVE         0.997773
+...          ...                 ...                                                ...       ...              ...
+9634        1195  4.0 out of 5 stars                                      worth buying   POSITIVE         0.999859
+9705        1203  4.0 out of 5 stars                                      worth buying   POSITIVE         0.999859
+9776        1211  4.0 out of 5 stars                                      worth buying   POSITIVE         0.999859
+9847        1219  4.0 out of 5 stars                                      worth buying   POSITIVE         0.999859
+9918        1227  4.0 out of 5 stars                                      worth buying   POSITIVE         0.999859
+
+[321 rows x 5 columns]
+
+Negative Sentiment Recommendations:
+      Product_id       Review_rating                                       clean_review   Emotion  Sentiment_Score
+102           13  1.0 out of 5 stars                                    please dont buy  NEGATIVE         0.989939
+432           55  1.0 out of 5 stars                                       poor quality  NEGATIVE         0.999757
+613           79  2.0 out of 5 stars                                       poor quality  NEGATIVE         0.999757
+691           89  1.0 out of 5 stars                                       poor quality  NEGATIVE         0.999757
+779           99  3.0 out of 5 stars                                     wrost metirial  NEGATIVE         0.991434
+841          107  3.0 out of 5 stars                                    chipset product  NEGATIVE         0.656809
+1257         158  1.0 out of 5 stars                     total waste of money stay away  NEGATIVE         0.999805
+2653         316  1.0 out of 5 stars                            item model is different  POSITIVE         0.997583
+3083         365  1.0 out of 5 stars                                       poor quality  NEGATIVE         0.999757
+3134         371  3.0 out of 5 stars                                    loose stitching  NEGATIVE         0.987055
+3295         392  1.0 out of 5 stars                            fake hush puppies shoes  NEGATIVE         0.999062
+4001         471  1.0 out of 5 stars                               poor quality product  NEGATIVE         0.999714
+4402         519  1.0 out of 5 stars                                           not good  NEGATIVE         0.999789
+4413         521  5.0 out of 5 stars                                       report abuse  NEGATIVE         0.998991
+4530         534  1.0 out of 5 stars                                       fake addidas  NEGATIVE         0.998932
+4891         577  1.0 out of 5 stars                               poor quality product  NEGATIVE         0.999714
+5082         599  4.0 out of 5 stars  original corcs product  order one size smaller...  NEGATIVE         0.995974
+5525         651  5.0 out of 5 stars                                excellent very nice  POSITIVE         0.999865
+5736         674  1.0 out of 5 stars                            fake hush puppies shoes  NEGATIVE         0.999062
+5925         696  3.0 out of 5 stars                                        maintenance  NEGATIVE         0.969411
+6212         734  2.0 out of 5 stars                                           pathetic  NEGATIVE         0.999811
+6275         741  2.0 out of 5 stars                                           pathetic  NEGATIVE         0.999811
+6295         743  2.0 out of 5 stars                                           pathetic  NEGATIVE         0.999811
+6497         767  5.0 out of 5 stars                                       report abuse  NEGATIVE         0.998991
+6508         769  4.0 out of 5 stars                                       report abuse  NEGATIVE         0.998991
+6511         770  1.0 out of 5 stars  lacks grip and skids like a cheap plastic pair...  NEGATIVE         0.999753
+6512         771  3.0 out of 5 stars                     nice product needs improvement  NEGATIVE         0.967920
+6543         775  1.0 out of 5 stars  lacks grip and skids like a cheap plastic pair...  NEGATIVE         0.999753
+6683         794  4.0 out of 5 stars                                       report abuse  NEGATIVE         0.998991
+6933         830  5.0 out of 5 stars                                       report abuse  NEGATIVE         0.998991
+6944         832  5.0 out of 5 stars                                       report abuse  NEGATIVE         0.998991
+7033         849  1.0 out of 5 stars                                        bad product  NEGATIVE         0.999783
+7067         856  2.0 out of 5 stars                            smaller than usual size  NEGATIVE         0.967088
+7432         900  3.0 out of 5 stars                                                das  NEGATIVE         0.959256
+7518         912  5.0 out of 5 stars                                            awasome  NEGATIVE         0.998769
+7932         969  2.0 out of 5 stars                               nah nah wont suggest  NEGATIVE         0.942811
+8024         980  3.0 out of 5 stars                     colour mismatch and size small  NEGATIVE         0.999247
+8152         995  3.0 out of 5 stars                     colour mismatch and size small  NEGATIVE         0.999247
+8228        1004  3.0 out of 5 stars                     colour mismatch and size small  NEGATIVE         0.999247
+8360        1019  3.0 out of 5 stars                     colour mismatch and size small  NEGATIVE         0.999247
+8537        1046  1.0 out of 5 stars           quality is not good color has been faded  NEGATIVE         0.997988
+8598        1053  1.0 out of 5 stars                     wrong size delivered by seller  NEGATIVE         0.999727
+8632        1059  1.0 out of 5 stars                     wrong size delivered by seller  NEGATIVE         0.999727
+8752        1079  1.0 out of 5 stars                                       fake product  NEGATIVE         0.999714
+8773        1082  5.0 out of 5 stars                                       report abuse  NEGATIVE         0.998991
+8851        1094  1.0 out of 5 stars                                       fake product  NEGATIVE         0.999714
+8872        1097  5.0 out of 5 stars                                       report abuse  NEGATIVE         0.998991
+8950        1109  1.0 out of 5 stars                                       fake product  NEGATIVE         0.999714
+8971        1112  5.0 out of 5 stars                                       report abuse  NEGATIVE         0.998991
+8992        1116  5.0 out of 5 stars                                       report abuse  NEGATIVE         0.998991
+9623        1193  1.0 out of 5 stars                                 colour is not good  NEGATIVE         0.999767
+9694        1201  1.0 out of 5 stars                                 colour is not good  NEGATIVE         0.999767
+9765        1209  1.0 out of 5 stars                                 colour is not good  NEGATIVE         0.999767
+9836        1217  1.0 out of 5 stars                                 colour is not good  NEGATIVE         0.999767
+9907        1225  1.0 out of 5 stars                                 colour is not good  NEGATIVE         0.999767
+
+
+
+Sentiment Score Recommendations:
+[376, 279, 939]

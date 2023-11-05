@@ -1,0 +1,38 @@
+Recommendation 1: Analyze average sentiment scores
+ Product_id  Average_sentiment_score
+        505                 0.884838
+         61                 0.836171
+        588                 0.834561
+        883                 0.832580
+       1074                 0.826385
+       1089                 0.826385
+       1104                 0.826385
+        957                 0.826250
+        478                 0.815660
+        908                 0.815354
+
+Recommendation 2: Consider average review ratings
+ Product_id  Average_review_rating
+        505                    4.1
+         61                    4.6
+        588                    4.8
+        883                    4.8
+       1074                    4.4
+       1089                    4.4
+       1104                    4.4
+        957                    4.3
+        478                    4.0
+        908                    4.7
+
+Recommendation 3: Identify areas for improvement
+ Product_id  Average_sentiment_score
+        853                 0.448784
+        840                 0.448784
+        850                 0.448784
+       1193                 0.396869
+       1201                 0.396869
+       1209                 0.396869
+       1217                 0.396869
+       1225                 0.396869
+        856                 0.276884
+        215                 0.264974
