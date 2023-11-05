@@ -94,7 +94,7 @@ def analyze_sentiment(text):
 
 
 # Apply sentiment analysis to 'clean_review' column
-if os.path.isfile('Src/DistilBERT/DistilBERT/shoe_cleanData_semantic.csv'):
+if os.path.isfile('Src/DistilBERT/shoe_cleanData_semantic.csv'):
     df = pd.read_csv("Src/DistilBERT/shoe_cleanData_semantic.csv")
 else:
     df[['Emotion', 'Sentiment_Score']] = df['clean_review'].apply(
@@ -119,3 +119,27 @@ sorted_df = grouped_df.sort_values(
 
 # Save the recommendations results to a CSV file
 sorted_df.to_csv('Src/DistilBERT/shoe_cleanData_recommendations.csv', index=False)
+
+# Recommendation based on Positive Sentiment
+positive_recommendations = df.groupby('Product_id').filter(lambda x: (x['Emotion'] == 'POSITIVE').mean() > 0.8)
+positive_recommendations = positive_recommendations.drop_duplicates(subset='Product_id')
+
+# Recommendation based on Negative Sentiment
+negative_recommendations = df.groupby('Product_id').filter(lambda x: (x['Emotion'] == 'NEGATIVE').mean() > 0.8)
+negative_recommendations = negative_recommendations.drop_duplicates(subset='Product_id')
+
+# Recommendation based on Sentiment Score
+average_sentiment = df.groupby('Product_id')['Sentiment_Score'].mean()
+sentiment_recommendations = average_sentiment.nlargest(3).index.tolist()
+
+# Print the recommendations
+print("Positive Sentiment Recommendations:")
+print(positive_recommendations)
+print()
+
+print("Negative Sentiment Recommendations:")
+print(negative_recommendations)
+print()
+
+print("Sentiment Score Recommendations:")
+print(sentiment_recommendations)
