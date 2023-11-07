@@ -31,6 +31,9 @@ for j in df.index:
 
 df = pd.DataFrame(list(zip(product_id, reviews, rates)),
                   columns=["Product_id", 'Review', 'Review_rating'])
+df.to_csv('Src/shoe_sorted_Data.csv', index=False)
+
+
 
 # Cleaning functions
 
