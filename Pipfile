@@ -8,6 +8,8 @@ numpy = "*"
 pandas = "*"
 matplotlib = "*"
 scikit-learn = "*"
+transformers = "*"
+torch = "*"
 
 [dev-packages]
 
