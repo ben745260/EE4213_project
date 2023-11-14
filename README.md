@@ -1,6 +1,6 @@
 # EE4213_project
 
-Pip install:
+Pip install for libraries:
 ```
 pip install -r requirements.txt
 ```
